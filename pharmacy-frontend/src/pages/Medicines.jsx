@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useCart } from "../CartContext";
 
 function Medicines() {
-  const [cart, setCart] = useState([]);
+  const { addToCart } = useCart();
 
   const medicines = [
     { id: 1, name: "Paracetamol", price: 20 },
@@ -26,8 +27,8 @@ function Medicines() {
     { id: 20, name: "Sertraline", price: 65 }
   ];
 
-  const addToCart = (med) => {
-    setCart([...cart, med]);
+  const handleAddToCart = (med) => {
+    addToCart(med);
     alert(`${med.name} added to cart!`);
   };
 
@@ -40,7 +41,7 @@ function Medicines() {
           <div key={med.id} className="medicine-card">
             <h3>{med.name}</h3>
             <p>₹ {med.price}</p>
-            <button onClick={() => addToCart(med)}>Add to Cart</button>
+            <button onClick={() => handleAddToCart(med)}>Add to Cart</button>
           </div>
         ))}
       </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../App";
 
 function Login() {
   const [loginData, setLoginData] = useState({
@@ -7,6 +8,7 @@ function Login() {
     password: ""
   });
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
 
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -17,8 +19,10 @@ function Login() {
     console.log("Login Data:", loginData);
     // Simple check for admin
     if (loginData.email === "admin@pharmacy.com" && loginData.password === "admin") {
+      setIsLoggedIn(true);
       navigate("/admin");
     } else {
+      setIsLoggedIn(true);
       navigate("/");
     }
   };

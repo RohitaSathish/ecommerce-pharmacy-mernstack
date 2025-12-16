@@ -34,8 +34,8 @@
 
 // export default App
 
-import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import React, { useState, createContext, useContext } from "react";
+import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -43,10 +43,25 @@ import Home from "./pages/Home";
 import Medicines from "./pages/Medicines";
 import Admin from "./pages/Admin";
 import Contact from "./pages/Contact";
+import Cart from "./pages/Cart";
+import Payment from "./pages/Payment";
+import { CartProvider } from "./CartContext";
 
-function App() {
+const AuthContext = createContext();
+
+export const useAuth = () => useContext(AuthContext);
+
+function AppContent() {
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    navigate("/");
+  };
+
   return (
-    <BrowserRouter>
+    <>
       <header style={{
         backgroundColor: 'rgba(108, 155, 207, 0.9)', /* Milder with transparency */
         color: 'white',
@@ -59,11 +74,16 @@ function App() {
       }}>
         <h1 style={{ margin: 0, fontSize: '1.8em' }}>Pharmacy Store</h1>
         <nav>
-          <Link to="/" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Home</Link>
-          <Link to="/login" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Login</Link>
-          <Link to="/register" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Register</Link>
-          <Link to="/medicines" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Browse Medicines</Link>
-          <Link to="/contact" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Contact</Link>
+          {!isLoggedIn ? (
+            <Link to="/login" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Login</Link>
+          ) : (
+            <>
+              <Link to="/medicines" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Browse Medicines</Link>
+              <Link to="/cart" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Cart</Link>
+              <Link to="/contact" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Contact</Link>
+              <button onClick={handleLogout} style={{ color: 'white', margin: '0 1em', background: 'none', border: 'none', cursor: 'pointer' }}>Logout</button>
+            </>
+          )}
         </nav>
       </header>
       <Routes>
@@ -74,6 +94,8 @@ function App() {
         <Route path="/medicines" element={<Medicines />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
       <footer style={{
         backgroundColor: 'rgba(74, 92, 106, 0.9)', /* Milder dark with transparency */
@@ -85,9 +107,22 @@ function App() {
       }}>
         <p>&copy; 2025 Pharmacy Store. All rights reserved.</p>
       </footer>
-    </BrowserRouter>
+    </>
+  );
+}
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  return (
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+      <CartProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </CartProvider>
+    </AuthContext.Provider>
   );
 }
 
 export default App;
-
