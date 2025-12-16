@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -6,6 +7,7 @@ function Register() {
     email: "",
     password: ""
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,6 +16,8 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Register Data:", formData);
+    alert("Registration successful!");
+    navigate("/login");
   };
 
   return (

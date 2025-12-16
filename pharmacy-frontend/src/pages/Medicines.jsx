@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Medicines() {
+  const [cart, setCart] = useState([]);
+
   const medicines = [
     { id: 1, name: "Paracetamol", price: 20 },
     { id: 2, name: "Cough Syrup", price: 80 },
@@ -24,6 +26,11 @@ function Medicines() {
     { id: 20, name: "Sertraline", price: 65 }
   ];
 
+  const addToCart = (med) => {
+    setCart([...cart, med]);
+    alert(`${med.name} added to cart!`);
+  };
+
   return (
     <div className="container">
       <h2>Available Medicines</h2>
@@ -33,7 +40,7 @@ function Medicines() {
           <div key={med.id} className="medicine-card">
             <h3>{med.name}</h3>
             <p>₹ {med.price}</p>
-            <button>Add to Cart</button>
+            <button onClick={() => addToCart(med)}>Add to Cart</button>
           </div>
         ))}
       </div>

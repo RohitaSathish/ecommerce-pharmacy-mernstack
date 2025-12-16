@@ -35,13 +35,14 @@
 // export default App
 
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Medicines from "./pages/Medicines";
 import Admin from "./pages/Admin";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
@@ -50,11 +51,20 @@ function App() {
         backgroundColor: 'rgba(108, 155, 207, 0.9)', /* Milder with transparency */
         color: 'white',
         padding: '1em',
-        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         backdropFilter: 'blur(5px)' /* Subtle blur */
       }}>
         <h1 style={{ margin: 0, fontSize: '1.8em' }}>Pharmacy Store</h1>
+        <nav>
+          <Link to="/" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Home</Link>
+          <Link to="/login" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Login</Link>
+          <Link to="/register" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Register</Link>
+          <Link to="/medicines" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Browse Medicines</Link>
+          <Link to="/contact" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Contact</Link>
+        </nav>
       </header>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -63,6 +73,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/medicines" element={<Medicines />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <footer style={{
         backgroundColor: 'rgba(74, 92, 106, 0.9)', /* Milder dark with transparency */
