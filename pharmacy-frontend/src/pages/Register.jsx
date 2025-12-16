@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../UserContext";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -8,6 +9,7 @@ function Register() {
     password: ""
   });
   const navigate = useNavigate();
+  const { addUser } = useUser();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,9 +17,13 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Register Data:", formData);
-    alert("Registration successful!");
-    navigate("/login");
+    const result = addUser(formData);
+    if (result.success) {
+      alert(result.message);
+      navigate("/login");
+    } else {
+      alert(result.message);
+    }
   };
 
   return (

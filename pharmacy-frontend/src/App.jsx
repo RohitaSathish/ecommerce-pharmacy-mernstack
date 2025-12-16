@@ -45,7 +45,9 @@ import Admin from "./pages/Admin";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import Payment from "./pages/Payment";
+import Orders from "./pages/Orders";
 import { CartProvider } from "./CartContext";
+import { UserProvider } from "./UserContext";
 
 const AuthContext = createContext();
 
@@ -67,19 +69,19 @@ function AppContent() {
         color: 'white',
         padding: '1em',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        backdropFilter: 'blur(5px)' /* Subtle blur */
+        backdropFilter: 'blur(5px)', /* Subtle blur */
+        position: 'relative'
       }}>
-        <h1 style={{ margin: 0, fontSize: '1.8em' }}>Pharmacy Store</h1>
-        <nav>
-          {!isLoggedIn ? (
-            <Link to="/login" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Login</Link>
-          ) : (
+        <h1 style={{ margin: 0, fontSize: '2.5em', fontFamily: 'Times New Roman, serif' }}>MediCare</h1>
+        <nav style={{ position: 'absolute', right: '1em' }}>
+          {isLoggedIn && (
             <>
               <Link to="/medicines" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Browse Medicines</Link>
               <Link to="/cart" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Cart</Link>
+              <Link to="/orders" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Orders</Link>
               <Link to="/contact" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Contact</Link>
               <button onClick={handleLogout} style={{ color: 'white', margin: '0 1em', background: 'none', border: 'none', cursor: 'pointer' }}>Logout</button>
             </>
@@ -95,6 +97,7 @@ function AppContent() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/orders" element={<Orders />} />
         <Route path="/payment" element={<Payment />} />
       </Routes>
       <footer style={{
@@ -105,7 +108,7 @@ function AppContent() {
         marginTop: 'auto',
         backdropFilter: 'blur(5px)'
       }}>
-        <p>&copy; 2025 Pharmacy Store. All rights reserved.</p>
+        <p>&copy; 2025 MediCare. All rights reserved.</p>
       </footer>
     </>
   );
@@ -116,11 +119,13 @@ function App() {
   
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-      <CartProvider>
-        <BrowserRouter>
-          <AppContent />
-        </BrowserRouter>
-      </CartProvider>
+      <UserProvider>
+        <CartProvider>
+          <BrowserRouter>
+            <AppContent />
+          </BrowserRouter>
+        </CartProvider>
+      </UserProvider>
     </AuthContext.Provider>
   );
 }

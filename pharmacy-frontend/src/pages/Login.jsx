@@ -23,7 +23,7 @@ function Login() {
       navigate("/admin");
     } else {
       setIsLoggedIn(true);
-      navigate("/");
+      navigate("/medicines");
     }
   };
 

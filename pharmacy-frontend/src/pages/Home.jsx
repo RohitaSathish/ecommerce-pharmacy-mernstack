@@ -8,10 +8,16 @@ function Home() {
   return (
     <div className="container">
       <div className="intro-section">
-        <h2>Welcome to Our Pharmacy Store</h2>
-        <p>
-          Your trusted online pharmacy for quality medicines and healthcare products.
-          We offer fast delivery, competitive prices, and expert advice to keep you healthy.
+        <div style={{ marginBottom: '2em' }}>
+          <div style={{ textAlign: 'center' }}>
+            <h2>Welcome to Our Pharmacy Store</h2>
+            <p>
+              Your trusted online pharmacy for quality medicines and healthcare products.
+              We offer fast delivery, competitive prices, and expert advice to keep you healthy.
+            </p>
+          </div>
+        </div>
+        <p style={{ textAlign: 'center', fontSize: '1.1em', lineHeight: '1.6' }}>
           Our pharmacy is committed to providing safe, effective, and affordable medications
           with professional consultation available 24/7.
         </p>
@@ -26,6 +32,7 @@ function Home() {
       </div>
       
       <div style={{ marginTop: '3em', padding: '2em', backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '8px' }}>
+
         <h3 style={{ color: 'var(--primary-color)', textAlign: 'center', marginBottom: '1.5em' }}>Medicine Safety & Awareness</h3>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2em' }}>
