@@ -15,7 +15,7 @@ function Payment() {
     bankName: "",
   });
 
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
+  const total = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
 
   const handleChange = (e) => {
     setPaymentData({ ...paymentData, [e.target.name]: e.target.value });
@@ -33,7 +33,7 @@ function Payment() {
       items: cart.map(item => ({
         name: item.name,
         price: item.price,
-        quantity: 1
+        quantity: item.quantity || 1
       }))
     };
     
@@ -66,11 +66,10 @@ function Payment() {
     );
   }
 
-return (
-<div className="container">
-<h2>Payment Page</h2>
+  return (
+    <div className="container">
+      <h2>Payment Page</h2>
       <p>Complete your payment here.</p>
-      {/* Add payment form or integration here later */}
       <h3>Total Amount: ₹ {total}</h3>
       <form
         onSubmit={handleSubmit}
@@ -227,8 +226,8 @@ return (
           </button>
         )}
       </form>
-</div>
-);
+    </div>
+  );
 }
 
 export default Payment;

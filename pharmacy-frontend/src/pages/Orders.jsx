@@ -46,4 +46,8 @@ function Orders() {
   );
 }
 
+<<<<<<< HEAD
 export default Orders;
+=======
+export default Orders;
+>>>>>>> 019e633e079e7ce7374cffac2c6655d6eb1b7403
