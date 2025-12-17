@@ -34,7 +34,7 @@ function Orders() {
               <ul>
                 {order.items.map((item, index) => (
                   <li key={index}>
-                    {item.name} - ₹ {item.price} x {item.quantity}
+                    {item.name} ({item.dosage}) - {item.brand} - ₹ {item.price}
                   </li>
                 ))}
               </ul>

@@ -1,33 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import { useCart } from "../CartContext";
+import { useMedicines } from "../MedicineContext";
 
 function Medicines() {
-  const [cart, setCart] = useState([]);
+  const { addToCart } = useCart();
+  const { medicines } = useMedicines();
 
-  const medicines = [
-    { id: 1, name: "Paracetamol", price: 20 },
-    { id: 2, name: "Cough Syrup", price: 80 },
-    { id: 3, name: "Vitamin C", price: 120 },
-    { id: 4, name: "Ibuprofen", price: 15 },
-    { id: 5, name: "Aspirin", price: 10 },
-    { id: 6, name: "Amoxicillin", price: 150 },
-    { id: 7, name: "Cetirizine", price: 25 },
-    { id: 8, name: "Omeprazole", price: 40 },
-    { id: 9, name: "Metformin", price: 30 },
-    { id: 10, name: "Losartan", price: 35 },
-    { id: 11, name: "Atorvastatin", price: 50 },
-    { id: 12, name: "Levothyroxine", price: 45 },
-    { id: 13, name: "Albuterol Inhaler", price: 200 },
-    { id: 14, name: "Insulin", price: 300 },
-    { id: 15, name: "Warfarin", price: 55 },
-    { id: 16, name: "Digoxin", price: 60 },
-    { id: 17, name: "Furosemide", price: 20 },
-    { id: 18, name: "Prednisone", price: 28 },
-    { id: 19, name: "Gabapentin", price: 70 },
-    { id: 20, name: "Sertraline", price: 65 }
-  ];
-
-  const addToCart = (med) => {
-    setCart([...cart, med]);
+  const handleAddToCart = (med) => {
+    addToCart(med);
     alert(`${med.name} added to cart!`);
   };
 
@@ -38,9 +18,17 @@ function Medicines() {
       <div className="medicine-list">
         {medicines.map((med) => (
           <div key={med.id} className="medicine-card">
-            <h3>{med.name}</h3>
-            <p>₹ {med.price}</p>
-            <button onClick={() => addToCart(med)}>Add to Cart</button>
+            <img src={med.image} alt={med.name} style={{ width: '120px', height: '120px', objectFit: 'cover', borderRadius: '8px', margin: '0 auto 1em auto', display: 'block' }} />
+            <h3>{med.name} <span style={{ fontSize: '0.8em', color: 'var(--secondary-color)', fontWeight: 'normal' }}>({med.dosage})</span></h3>
+            <p style={{ fontSize: '0.9em', color: 'var(--secondary-color)', marginBottom: '0.5em' }}>Brand: {med.brand}</p>
+            <div style={{ textAlign: 'center', marginBottom: '0.5em' }}>
+              <p style={{ fontSize: '1.2em', fontWeight: 'bold', color: 'var(--primary-color)', margin: '0.5em 0' }}>₹ {med.price}</p>
+              <p style={{ color: '#ffa500', margin: '0.5em 0' }}>★ {med.rating}/5</p>
+            </div>
+            <div style={{ marginBottom: '1em', textAlign: 'left' }}>
+              <p><strong>Purpose:</strong> {med.purpose}</p>
+            </div>
+            <button onClick={() => handleAddToCart(med)} style={{ backgroundColor: '#007bff', borderColor: '#007bff' }}>Add to Cart</button>
           </div>
         ))}
       </div>

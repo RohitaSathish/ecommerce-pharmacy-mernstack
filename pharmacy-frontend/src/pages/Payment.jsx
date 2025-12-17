@@ -15,7 +15,7 @@ function Payment() {
     bankName: "",
   });
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = cart.reduce((sum, item) => sum + item.price, 0);
 
   const handleChange = (e) => {
     setPaymentData({ ...paymentData, [e.target.name]: e.target.value });
@@ -23,6 +23,25 @@ function Payment() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Save order to localStorage
+    const newOrder = {
+      id: Date.now(),
+      date: new Date().toLocaleDateString(),
+      paymentMethod: paymentMethod,
+      total: total,
+      items: cart.map(item => ({
+        name: item.name,
+        price: item.price,
+        brand: item.brand,
+        dosage: item.dosage
+      }))
+    };
+    
+    const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+    existingOrders.push(newOrder);
+    localStorage.setItem("orders", JSON.stringify(existingOrders));
+    
     let message = "Payment successful! Thank you for your purchase.";
     if (paymentMethod === "cod") {
       message = "Order placed successfully! You will pay cash on delivery.";
@@ -33,7 +52,7 @@ function Payment() {
     }
     alert(message);
     clearCart();
-    navigate("/");
+    navigate("/orders");
   };
 
   if (cart.length === 0) {

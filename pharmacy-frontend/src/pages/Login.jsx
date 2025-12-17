@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext";
 
 function Login() {
   const [loginData, setLoginData] = useState({
@@ -7,6 +8,7 @@ function Login() {
     password: ""
   });
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -14,12 +16,16 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login Data:", loginData);
+    console.log('Login attempt:', loginData); // Debug log
     // Simple check for admin
-    if (loginData.email === "admin@pharmacy.com" && loginData.password === "admin") {
+    if (loginData.email.trim() === "admin@pharmacy.com" && loginData.password.trim() === "admin") {
+      console.log('Admin login successful'); // Debug log
+      login({ email: loginData.email, role: 'admin' });
       navigate("/admin");
     } else {
-      navigate("/");
+      console.log('User login'); // Debug log
+      login({ email: loginData.email, role: 'user' });
+      navigate("/medicines");
     }
   };
 
@@ -32,6 +38,7 @@ function Login() {
           type="email"
           name="email"
           placeholder="Email"
+          value={loginData.email}
           onChange={handleChange}
           required
         />
@@ -40,6 +47,7 @@ function Login() {
           type="password"
           name="password"
           placeholder="Password"
+          value={loginData.password}
           onChange={handleChange}
           required
         />
