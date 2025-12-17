@@ -1,36 +1,58 @@
 import React from "react";
-import { useCart } from "../CartContext";
-import { useMedicines } from "../MedicineContext";
+import { Link } from "react-router-dom";
+import './Medicines.css';
 
 function Medicines() {
-  const { addToCart } = useCart();
-  const { medicines } = useMedicines();
-
-  const handleAddToCart = (med) => {
-    addToCart(med);
-    alert(`${med.name} added to cart!`);
-  };
-
   return (
-    <div className="container">
-      <h2>Available Medicines</h2>
+    <div className="medicines-page">
+      <div className="medicines-header">
+        <h1>Browse Medicines</h1>
+        <p>Select a category to find the medicines you need</p>
+      </div>
 
-      <div className="medicine-list">
-        {medicines.map((med) => (
-          <div key={med.id} className="medicine-card">
-            <img src={med.image} alt={med.name} style={{ width: '120px', height: '120px', objectFit: 'cover', borderRadius: '8px', margin: '0 auto 1em auto', display: 'block' }} />
-            <h3>{med.name} <span style={{ fontSize: '0.8em', color: 'var(--secondary-color)', fontWeight: 'normal' }}>({med.dosage})</span></h3>
-            <p style={{ fontSize: '0.9em', color: 'var(--secondary-color)', marginBottom: '0.5em' }}>Brand: {med.brand}</p>
-            <div style={{ textAlign: 'center', marginBottom: '0.5em' }}>
-              <p style={{ fontSize: '1.2em', fontWeight: 'bold', color: 'var(--primary-color)', margin: '0.5em 0' }}>₹ {med.price}</p>
-              <p style={{ color: '#ffa500', margin: '0.5em 0' }}>★ {med.rating}/5</p>
-            </div>
-            <div style={{ marginBottom: '1em', textAlign: 'left' }}>
-              <p><strong>Purpose:</strong> {med.purpose}</p>
-            </div>
-            <button onClick={() => handleAddToCart(med)} style={{ backgroundColor: '#007bff', borderColor: '#007bff' }}>Add to Cart</button>
-          </div>
-        ))}
+      <div className="container">
+        <div className="categories-grid">
+          <Link to="/category-medicines?category=Pain Relief" className="category-card">
+            <div className="category-icon pain-relief"></div>
+            <h4>Pain Relief</h4>
+            <p>Analgesics, Anti-inflammatory drugs, Muscle relaxants</p>
+          </Link>
+          <Link to="/category-medicines?category=Antibiotics" className="category-card">
+            <div className="category-icon antibiotics"></div>
+            <h4>Antibiotics</h4>
+            <p>Bacterial infection treatments, Antiviral medications</p>
+          </Link>
+          <Link to="/category-medicines?category=Vitamins" className="category-card">
+            <div className="category-icon vitamins"></div>
+            <h4>Vitamins & Supplements</h4>
+            <p>Essential vitamins, Minerals, Nutritional supplements</p>
+          </Link>
+          <Link to="/category-medicines?category=Chronic Care" className="category-card">
+            <div className="category-icon chronic"></div>
+            <h4>Chronic Care</h4>
+            <p>Diabetes, Hypertension, Heart disease medications</p>
+          </Link>
+          <Link to="/category-medicines?category=Skincare" className="category-card">
+            <div className="category-icon skincare"></div>
+            <h4>Skincare</h4>
+            <p>Dermatological treatments, Topical medications</p>
+          </Link>
+          <Link to="/category-medicines?category=Respiratory" className="category-card">
+            <div className="category-icon respiratory"></div>
+            <h4>Respiratory</h4>
+            <p>Asthma inhalers, Cough syrups, Allergy medications</p>
+          </Link>
+          <Link to="/category-medicines?category=Digestive" className="category-card">
+            <div className="category-icon digestive"></div>
+            <h4>Digestive Health</h4>
+            <p>Antacids, Probiotics, Digestive enzymes</p>
+          </Link>
+          <Link to="/category-medicines?category=Women's Health" className="category-card">
+            <div className="category-icon womens-health"></div>
+            <h4>Women's Health</h4>
+            <p>Prenatal vitamins, Menstrual care, Iron supplements</p>
+          </Link>
+        </div>
       </div>
     </div>
   );

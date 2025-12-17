@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Medicines from "./pages/Medicines";
+import CategoryMedicines from "./pages/CategoryMedicines";
 import Admin from "./pages/Admin";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
@@ -49,7 +50,7 @@ function Navigation() {
       boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
       backdropFilter: 'blur(5px)'
     }}>
-      <h1 style={{ margin: 0, fontSize: '1.8em' }}>MediCare</h1>
+      <h1 style={{ margin: 0, fontSize: '1.8em' }}>HealCare</h1>
       {isLoggedIn && (
         <nav>
           <Link to="/medicines" style={{ color: 'white', margin: '0 1em', textDecoration: 'none' }}>Browse Medicines</Link>
@@ -76,6 +77,7 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/medicines" element={<Medicines />} />
+        <Route path="/category-medicines" element={<CategoryMedicines />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/payment" element={<Payment />} />
@@ -90,7 +92,7 @@ function AppContent() {
         marginTop: 'auto',
         backdropFilter: 'blur(5px)'
       }}>
-        <p>&copy; 2025 MediCare. All rights reserved.</p>
+        <p>&copy; 2025 HealCare. All rights reserved.</p>
       </footer>
     </>
   );
